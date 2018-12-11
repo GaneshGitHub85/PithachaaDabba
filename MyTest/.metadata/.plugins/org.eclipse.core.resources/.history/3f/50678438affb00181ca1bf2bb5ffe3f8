@@ -1,0 +1,51 @@
+package com.americangolf.cucumber;
+
+import com.americangolf.webdriver.WebConnector;
+
+import cucumber.api.Scenario;
+import cucumber.api.java.After;
+import cucumber.api.java.Before;
+import cucumber.api.java.en.And;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+
+public class GenericSteps {
+
+	WebConnector con;
+	public GenericSteps(WebConnector con){
+		this.con=con;
+	}
+	
+	@Before
+	public void before(Scenario s) {
+		System.out.println("***Bef*** "+s.getName());
+		con.initReports(s.getName());
+	}
+	
+	@After
+	public void after() {
+		System.out.println("***Aft***");	
+		con.quit();
+	}
+	
+	
+	
+	@And("^I go to Clothing Shoes option and I click on shoes$")
+	public void I_go_to_Clothing_and_Shoes_option_and_click_on_shoes() {
+		con.move_To_element("//*[@id=\"header-navigation\"]/div[1]/ul/li[3]/a");
+		con.click("shoes_xpath");
+	}
+	@When("^I click on Sort by Price Lowest$")
+	public void When_I_click_on_Sort_by_Price_Lowest() {
+		con.select("sort_shoes_xpath","Price Lowest");
+	}
+	@Then("^Shoes items displayed with ascending order of price$")
+	public void Display_sort_shoes() {
+		System.out.println("Shoes display in Ascending Order");
+		
+	}
+		
+	}
+	
+	
+

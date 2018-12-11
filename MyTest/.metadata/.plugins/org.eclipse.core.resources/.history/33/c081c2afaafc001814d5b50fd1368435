@@ -1,0 +1,18 @@
+package com.americangolf.cucumber;
+
+import com.americangolf.webdriver.WebConnector;
+
+import cucumber.api.java.en.Then;
+
+public class Shoes_Price_Test {
+	WebConnector con;
+	public  Shoes_Price_Test(WebConnector con) {
+	this.con=con;	
+	}
+	
+	@Then("^Shoes name (.*) match with price (.*)$")
+	public void Shoes_name_and_price_test(String shoesname, Double pricename) {
+	con.shoes_price_test(shoesname, pricename, "Shoes_Price_test_xpath");
+		
+	}
+}

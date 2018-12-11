@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="MyRunner" project="AmericanGlf" tests="1" started="1" failures="0" errors="0" ignored="0">
+  <testsuite name="com.americangolf.cucumber.MyRunner" time="90.981">
+    <testsuite name="Feature: check Shoes and it's related prices" time="90.981">
+      <testcase name="check Shoes and it's related prices" classname="check Shoes and it's related prices" time="90.981"/>
+    </testsuite>
+  </testsuite>
+</testrun>

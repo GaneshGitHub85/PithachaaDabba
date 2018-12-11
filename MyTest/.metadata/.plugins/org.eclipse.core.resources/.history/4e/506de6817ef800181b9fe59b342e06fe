@@ -1,0 +1,7 @@
+url=https://www.americangolf.co.uk/
+MyAccount_xpath=//*[@id="header-top-wrapper"]/div/div[3]/div[1]/div/ul/li[3]/a
+validateLogin_xpath=//*[@id=\"primary-content\"]/div/div[1]/h2
+username_xpath=//*[@type='email']
+password_xpath=//*[@type='password']
+login_xpath=//*[@type='submit']
+golf_clubs_xpath=//*[@id="header-navigation"]/div[1]/ul/li[2]/a

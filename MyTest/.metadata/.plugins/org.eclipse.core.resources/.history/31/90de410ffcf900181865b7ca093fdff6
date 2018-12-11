@@ -1,0 +1,176 @@
+package com.americangolf.webdriver;
+
+
+
+
+import java.io.FileInputStream;
+import java.util.Properties;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+
+
+
+public class WebConnector {
+	WebDriver driver;
+	public String name;
+	public Properties prop;
+	public ExtentReports rep;
+	public ExtentTest scenario;
+	public WebElement ele;
+	public WebConnector() {
+		//name="A";
+		if(prop==null) {
+			
+			try {
+				prop= new Properties();
+				FileInputStream fs = new FileInputStream(System.getProperty("user.dir")+"\\src\\test\\resources\\Golf.properties");
+				prop.load(fs);
+			} catch (Exception e) {
+				e.printStackTrace();
+				// report
+			}
+		}
+	}
+	
+	public void openBrowser(String browserName) {
+	
+	if(browserName.equals("Mozilla")) {
+		driver= new FirefoxDriver();
+	driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+	}
+	else if(browserName.equals("Chrome")) {
+		driver= new ChromeDriver();
+	driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+	}
+	else if(browserName.equals("IE")) {
+		driver= new InternetExplorerDriver();
+	driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+	}
+}
+	public void navigate(String url)
+	{
+		try {
+		driver.get(url);
+		}catch(Exception e) {
+		//fail("URL launch failed");
+			e.printStackTrace();
+		driver.quit();
+		}
+	}
+	
+	
+	public void type(String ObjectKey, String value) {
+		getObject(ObjectKey).sendKeys(value);	
+		}
+	public void click(String ObjectKey) {
+	getObject(ObjectKey).click();
+		}	
+	
+	public void select(String ObjectKey,String value) {
+		Select sel=new Select(getObject(ObjectKey));
+			sel.selectByVisibleText(value);		
+	}
+	
+	public void  validateLogin(String ObjectKey) {
+		boolean b=driver.findElement(By.xpath(prop.getProperty(ObjectKey))).isDisplayed();
+		
+		}
+	
+	public void login(String username, String password) throws InterruptedException {
+		click("facebook_link_xpath");
+		type("username_xpath",username);
+		type("password_xpath", password);
+		click("loginbutton_xpath");	
+		acceptAlertIfPresent();
+		waitForPageToLoad();
+		
+	}
+	public void acceptAlertIfPresent() {
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, 15);
+			wait.until(ExpectedConditions.alertIsPresent());
+			driver.switchTo().alert().accept();
+			driver.switchTo().defaultContent();
+		}catch(Exception e) {
+			// not present
+		}
+	}
+	public void waitForPageToLoad() throws InterruptedException {
+		JavascriptExecutor js = (JavascriptExecutor)driver;
+		int i=0;
+		
+		while(i!=10){
+		String state = (String)js.executeScript("return document.readyState;");
+		System.out.println(state);
+
+		if(state.equals("complete"))
+			break;
+		else
+			wait(2);
+
+		i++;
+		}
+		// check for jquery status
+		i=0;
+		while(i!=10){
+	
+			Long d= (Long) js.executeScript("return jQuery.active;");
+			System.out.println(d);
+			if(d.longValue() == 0 )
+			 	break;
+			else
+				 wait(2);
+			 i++;
+				
+			}
+		
+}
+	
+	
+	public WebElement getObject(String ObjectKey) {
+		WebElement e=null;
+		if(ObjectKey.endsWith("_xpath")) {
+			e=driver.findElement(By.xpath(prop.getProperty(ObjectKey)));
+		}
+		if(ObjectKey.endsWith("_id")) {
+			e=driver.findElement(By.xpath(prop.getProperty(ObjectKey)));
+		}
+		if(ObjectKey.endsWith("_name")) {
+			e=driver.findElement(By.xpath(prop.getProperty(ObjectKey)));
+		}
+		if(ObjectKey.endsWith("_tagName")) {
+			e=driver.findElement(By.xpath(prop.getProperty(ObjectKey)));
+		
+		}
+		return e;
+		
+	}
+	
+	public void move_To_element(String ObjectKey) {
+		Actions act=new Actions(driver);
+		act.moveToElement(getObject(ObjectKey)).build().perform();
+		
+	}
+	}
+		
+	
+	
+
+
+	
+
+

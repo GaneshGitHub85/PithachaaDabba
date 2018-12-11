@@ -1,0 +1,50 @@
+package com.americangolf.cucumber;
+
+
+import java.util.List;
+import java.util.Set;
+
+import org.junit.Test;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+
+import junit.framework.Assert;
+
+public class WindowTest {
+
+	//public static void main(String[] args) {
+		// TODO Auto-generated method stub
+@SuppressWarnings("deprecation")
+@Test
+public void me1() {
+		WebDriver driver=new ChromeDriver();
+		driver.get("https://mail.rediff.com/cgi-bin/login.cgi");
+		
+		String me=driver.findElement(By.xpath("//input[@type='checkbox']")).getAttribute("checked");
+		System.out.println(me);
+		
+		List<WebElement> lst=driver.findElements(By.tagName("a"));
+		System.out.println(lst.size());
+		for(WebElement ele:lst)
+			System.out.println(ele.getText());
+		
+		for(int i=0;i<lst.size();i++) {
+			System.out.println(lst.get(i).getText());
+		}
+		driver.findElement(By.xpath("//input[@type='submit']")).click();
+		
+		Alert al=driver.switchTo().alert();
+		
+	System.out.println(al.getText());
+	Assert.assertEquals(al.getText(), "Please enter a valid user name");
+		driver.quit();
+		
+		
+		
+	}
+
+}

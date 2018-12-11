@@ -1,0 +1,11 @@
+Feature: Login to Golf appliction
+Scenario: Login to golf applicaton
+Given I opened the browser Chrome
+And I navigate to AmericanGolf https://www.americangolf.co.uk/
+And I Click on My Account/Register link
+Then Login Page openes
+When I click on facebook link
+And Entered email and password
+And Click on Login
+Then I logged in to American golf application
+And I have been displayed option search american golf

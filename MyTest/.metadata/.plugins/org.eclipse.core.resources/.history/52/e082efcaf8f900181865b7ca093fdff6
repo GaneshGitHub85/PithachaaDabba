@@ -1,0 +1,34 @@
+package com.americangolf.cucumber;
+
+import com.americangolf.webdriver.WebConnector;
+
+import cucumber.api.java.en.And;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+
+public class GenericSteps {
+
+	WebConnector con;
+	GenericSteps(WebConnector con){
+		this.con=con;
+	}
+	
+	@And("^I go to Clothing Shoes option and I click on shoes$")
+	public void I_go_to_Clothing_and_Shoes_option_and_click_on_shoes() {
+		con.move_To_element("//*[@id=\"header-navigation\"]/div[1]/ul/li[3]/a");
+		con.click("shoes_xpath");
+	}
+	@When("^I click on Sort by Price Lowest$")
+	public void When_I_click_on_Sort_by_Price_Lowest() {
+		con.select("sort_shoes_xpath","Price Lowest");
+	}
+	@Then("^Shoes items displayed with ascending order of price$")
+	public void Display_sort_shoes() {
+		System.out.println("Shoes display in Ascending Order");
+		
+	}
+		
+	}
+	
+	
+

@@ -1,0 +1,12 @@
+package com.americangolf.cucumber;
+
+import cucumber.api.java.en.And;
+
+public class GenericSteps {
+
+	@And("^I go to Clothing and Shoes option and click on shoes$")
+	public void I_go_to_Clothing_and_Shoes_option_and_click_on_shoes() {
+		
+	}
+	
+}

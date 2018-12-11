@@ -1,0 +1,46 @@
+package com.americangolf.cucumber;
+
+import java.util.List;
+
+import org.openqa.selenium.WebElement;
+
+import com.americangolf.webdriver.WebConnector;
+
+import cucumber.api.java.en.And;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+
+public class Test_Sort_shoes {
+	
+	WebConnector con;
+	public Test_Sort_shoes(WebConnector con) {
+		this.con=con;
+	}
+	
+	@And("^I go to Clothing Shoes option and I click on shoes$")
+	public void I_go_to_Clothing_Shoes_option_and_I_click_on_shoes() {
+		con.move_To_element("clothing_and_shoes_xpath");
+		con.move_To_element("shoes_xpath");
+		con.click("shoes_xpath");
+		try {
+			con.waitForPageToLoad();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+	
+	@When("^I click on Sort by Price Lowest$")
+	public void I_click_on_Sort_by_Price_Lowest() {
+		con.select("sort_shoes_xpath","Price Lowest");
+		
+		
+	}
+	@Then("^Shoes items displayed with ascending order of price$")
+		public void Shoes_items_displayed_with_ascending_order_of_price() {
+		con.sort_check();
+		
+	}
+
+}

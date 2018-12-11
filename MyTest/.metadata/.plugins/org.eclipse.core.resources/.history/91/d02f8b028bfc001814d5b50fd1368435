@@ -1,0 +1,37 @@
+package com.americangolf.cucumber;
+
+import com.americangolf.webdriver.WebConnector;
+
+import cucumber.api.Scenario;
+import cucumber.api.java.After;
+import cucumber.api.java.Before;
+import cucumber.api.java.en.And;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+
+public class GenericSteps {
+
+	WebConnector con;
+	public GenericSteps(WebConnector con){
+		this.con=con;
+	}
+	
+	@Before
+	public void before(Scenario s) {
+		System.out.println("***Bef*** "+s.getName());
+		con.initReports(s.getName());
+	}
+	
+	@After
+	public void after() {
+		System.out.println("***Aft***");	
+		con.quit();
+	}
+	
+	
+
+		
+	}
+	
+	
+

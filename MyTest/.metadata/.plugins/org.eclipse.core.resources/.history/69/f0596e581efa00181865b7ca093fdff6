@@ -1,0 +1,63 @@
+package com.americangolf.cucumber;
+
+
+import com.americangolf.webdriver.WebConnector;
+
+//import cucumber.api.PendingException;
+import cucumber.api.java.en.*;
+import cucumber.api.java.en.Given;
+
+public class Login {
+	WebConnector con;
+	
+	public Login(WebConnector con) {
+		this.con=con;
+	}
+
+	@Given("^I opened the browser (.*)$")
+	public void i_opened_the_browser(String browserName) {
+		con.infoLog("Opening the Browser");
+con.openBrowser(browserName);
+	    // Write code here that turns the phrase above into concrete actions
+	    //throw new PendingException();
+	}
+
+	@And("^I navigate to AmericanGolf (.*)$")
+	public void i_navigate_to_AmericanGolf_URL(String url) {
+		con.infoLog("Navigating to American Golf URL");
+	 con.navigate(url);
+	}
+	@And("^I Click on My Account/Register link$")
+	
+	public void i_click_on_my_account() {
+		con.infoLog("Using My account to Login");
+		
+		con.click("MyAccount_xpath");
+						
+		}
+	@Then("^Login Page openes$")
+	public void login_page_open() {
+		System.out.println("On Login page Options");
+		//con.validateLoginpageopen("validateLogin_xpath");
+		
+		
+	}
+	@When("^I click on facebook link And Entered username as (.*) and password as (.*) and loggedin$")
+		public void Login_from_facebook(String username, String password) throws InterruptedException {
+		con.infoLog("Login through Facebook");
+		con.login(username,password);
+		
+			
+		}
+	
+	
+
+	@Then("^I logged in to American golf application$")
+	public void Logged_in_to_application() {
+		con.infoLog("checking on AmericanGolf");
+		//con.validateLoginpageopen("golf_clubs_xpath");
+		con.validateLogin("Fail");
+	}
+
+	}
+

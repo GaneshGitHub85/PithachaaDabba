@@ -1,0 +1,13 @@
+Feature: check Shoes and it's related prices
+Scenario Outline: check Shoes and it's related prices
+Given I opened the browser Chrome
+And I navigate to AmericanGolf https://www.americangolf.co.uk/
+And I Click on My Account/Register link
+Then Login Page openes
+When I click on facebook link And Entered username as gr.babar@gmail.com and password as Facebook@123 and loggedin
+Then Shoes name <ShoesName> match with price £<Price>
+Examples:
+
+|ShoesName									|Price		|
+|Nike Golf Delight IV Ladies Shoes			|25.00		|
+|Nike Golf Explorer Shoes					|40.00		|

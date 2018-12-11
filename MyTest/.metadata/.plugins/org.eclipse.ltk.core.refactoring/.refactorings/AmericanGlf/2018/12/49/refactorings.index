@@ -1,0 +1,10 @@
+1544161806197	Delete element
+1544161885390	Move 'pom.xml' to 'AmericanGlf'
+1544166076115	Delete element
+1544166663403	Delete element
+1544166708967	Move 'AmericanGolfLogin.feature' to 'Features'
+1544167243543	Rename resource 'Features'
+1544170202080	Move 'sortingShoesLowestToHighest.feature' to 'SmokeTest'
+1544172594204	Move 'AmericanGolfLogin.feature' to 'cucumber'
+1544185245626	Move 'sortingShoesLowestToHighest.feature' to 'cucumber'
+1544185251349	Move 'AmericanGolfLogin.feature' to 'SmokeTest'

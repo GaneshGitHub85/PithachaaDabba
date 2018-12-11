@@ -1,0 +1,163 @@
+package com.americangolf.webdriver;
+
+
+import static org.assertj.core.api.Assertions.*;
+
+import java.io.FileInputStream;
+import java.util.Properties;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.support.ui.Select;
+
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+
+
+
+public class WebConnector {
+	WebDriver driver;
+	public String name;
+	public Properties prop;
+	public ExtentReports rep;
+	public ExtentTest scenario;
+	public WebElement ele;
+	public WebConnector() {
+		//name="A";
+		if(prop==null) {
+			
+			try {
+				prop= new Properties();
+				FileInputStream fs = new FileInputStream(System.getProperty("user.dir")+"\\src\\test\\resources\\Golf.properties");
+				prop.load(fs);
+			} catch (Exception e) {
+				e.printStackTrace();
+				// report
+			}
+		}
+	}
+	
+	public void openBrowser(String browserName) {
+	
+	if(browserName.equals("Mozilla")) {
+		driver= new FirefoxDriver();
+	driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+	}
+	else if(browserName.equals("Chrome")) {
+		driver= new ChromeDriver();
+	driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+	}
+	else if(browserName.equals("IE")) {
+		driver= new InternetExplorerDriver();
+	driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+	}
+}
+	public void navigate(String url)
+	{
+		try {
+		driver.get(url);
+		}catch(Exception e) {
+		fail("URL launch failed");
+			e.printStackTrace();
+		driver.quit();
+		}
+	}
+	public void click(String ObjectKey) {
+		try {
+		if(ObjectKey.endsWith("_xpath")) {
+			driver.findElement(By.xpath(prop.getProperty(ObjectKey))).click();
+		}
+		if(ObjectKey.endsWith("_id")) {
+			driver.findElement(By.id(prop.getProperty(ObjectKey))).click();
+		}
+		if(ObjectKey.endsWith("_name")) {
+			driver.findElement(By.name(prop.getProperty(ObjectKey))).click();;
+		}
+		if(ObjectKey.endsWith("_tagName")) {
+			driver.findElement(By.tagName(prop.getProperty(ObjectKey))).click();;
+		
+		}
+		}catch(Exception e) {
+		e.printStackTrace();
+		driver.quit();
+		
+		}
+		
+	}
+	
+		
+	public void  validateLoginpageopen(String ObjectKey) {
+		boolean b=driver.findElement(By.xpath(prop.getProperty(ObjectKey))).isDisplayed();
+	 
+	
+		
+	}
+	
+	
+	public void type(String ObjectKey, String value) {
+		if(ObjectKey.endsWith("_xpath")) {
+			driver.findElement(By.xpath(prop.getProperty(ObjectKey))).sendKeys(value);
+		}
+		if(ObjectKey.endsWith("_id")) {
+			driver.findElement(By.id(prop.getProperty(ObjectKey))).sendKeys(value);
+		}
+		if(ObjectKey.endsWith("_name")) {
+			driver.findElement(By.name(prop.getProperty(ObjectKey))).sendKeys(value);
+		}
+		if(ObjectKey.endsWith("_tagName")) {
+			driver.findElement(By.tagName(prop.getProperty(ObjectKey))).sendKeys(value);
+		
+		}		
+			
+		}
+	
+	public void select(String ObjectKey,String value) {
+		Select sel=new Select(ele);
+		if(ObjectKey.endsWith("_xpath")) {
+			ele=driver.findElement(By.xpath(prop.getProperty(ObjectKey)));
+			sel.selectByVisibleText(value);
+		}
+		if(ObjectKey.endsWith("_id")) {
+			ele=driver.findElement(By.xpath(prop.getProperty(ObjectKey)));
+			sel.selectByVisibleText(value);
+		}
+		if(ObjectKey.endsWith("_name")) {
+			ele=driver.findElement(By.xpath(prop.getProperty(ObjectKey)));
+			sel.selectByVisibleText(value);
+		}
+		if(ObjectKey.endsWith("_tagName")) {
+			ele=driver.findElement(By.xpath(prop.getProperty(ObjectKey)));
+			sel.selectByVisibleText(value);
+		
+		}
+	}
+
+	public void facebookLogin(String facebook_link_xpath, String username, String password, String loginbutton_xpath) {
+	try {
+		
+		driver.findElement(By.xpath(prop.getProperty(facebook_link_xpath))).click();
+		
+		driver.findElement(By.xpath(prop.getProperty(username))).sendKeys("gr.babar@gmail.com");
+		driver.findElement(By.xpath(prop.getProperty(password))).sendKeys("Facebook@123");
+		driver.findElement(By.xpath(prop.getProperty(loginbutton_xpath))).click();
+		
+	}catch(Exception e) {
+		e.printStackTrace();
+		driver.quit();
+	}
+	
+	}
+	}
+		
+	
+	
+
+
+	
+
+

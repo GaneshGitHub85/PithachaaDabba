@@ -1,0 +1,9 @@
+Feature: Shoes Sorting by Lowsest to Highest
+Scenario: Sorting of Shoes by lowest to Highest price
+Given I opened the browser Chrome
+And I navigate to AmericanGolf https://www.americangolf.co.uk/
+And I Click on My Account/Register link 
+And I click on facebook link And Entered username as gr.babar@gmail.com and password as Facebook@123 and loggedin
+And I go to Clothing Shoes option and I click on shoes
+When I click on Sort by Price Lowest
+Then Shoes items displayed with ascending order of price

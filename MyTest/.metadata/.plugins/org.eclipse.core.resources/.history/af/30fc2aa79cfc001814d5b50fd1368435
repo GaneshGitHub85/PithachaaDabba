@@ -1,0 +1,4 @@
+Feature: check Shoes and it's related prices
+Given I logged in to an application
+And I am on the Shoes page
+When 
